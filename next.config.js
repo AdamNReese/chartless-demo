@@ -5,8 +5,10 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/hospital-charting-demo' : '',
-  basePath: process.env.NODE_ENV === 'production' ? '/hospital-charting-demo' : '',
+  distDir: 'out',
+  generateBuildId: async () => {
+    return 'build-id'
+  }
 }
 
 module.exports = nextConfig
