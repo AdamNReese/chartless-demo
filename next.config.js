@@ -5,10 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  distDir: 'out',
-  generateBuildId: async () => {
-    return 'build-id'
-  }
+  distDir: 'out'
 }
 
 module.exports = nextConfig
