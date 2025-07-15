@@ -4,7 +4,7 @@ A comprehensive React demo application showcasing the Hospital Charting Automati
 
 ## Live Demo
 
-🚀 **[View Live Demo](https://hospital-charting-demo.vercel.app)**
+🚀 **[View Live Demo](https://chartless-demo.vercel.app)**
 
 ## Features
 

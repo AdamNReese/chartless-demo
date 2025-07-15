@@ -4,7 +4,7 @@
   "trailingSlash": true,
   "rewrites": [
     {
-      "source": "/hospital-charting-demo/(.*)",
+      "source": "/chartless-demo/(.*)",
       "destination": "/$1"
     }
   ]
