@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "out",
+  "trailingSlash": true,
+  "rewrites": [
+    {
+      "source": "/hospital-charting-demo/(.*)",
+      "destination": "/$1"
+    }
+  ]
+}
