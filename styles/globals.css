@@ -23,6 +23,8 @@
   
   .btn {
     @apply px-4 py-2 rounded-md font-medium text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    min-height: 44px; /* Minimum touch target size */
+    min-width: 44px;
   }
   
   .btn-primary {
@@ -131,5 +133,45 @@
   
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background-color: rgba(156, 163, 175, 0.8);
+  }
+  
+  /* Mobile-specific improvements */
+  @media (max-width: 768px) {
+    .card {
+      @apply p-4;
+    }
+    
+    .btn {
+      @apply px-6 py-3 text-base;
+      min-height: 48px;
+    }
+    
+    .input {
+      @apply py-3 text-base;
+      min-height: 48px;
+    }
+    
+    /* Improve touch targets */
+    .touch-target {
+      min-height: 48px;
+      min-width: 48px;
+    }
+    
+    /* Prevent zoom on input focus */
+    input[type="text"], 
+    input[type="email"], 
+    input[type="password"], 
+    textarea, 
+    select {
+      font-size: 16px;
+    }
+  }
+  
+  /* Hover effects only on non-touch devices */
+  @media (hover: hover) {
+    .hover-effect:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
   }
 }

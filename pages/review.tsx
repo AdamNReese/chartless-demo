@@ -275,18 +275,18 @@ const SmartReview: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Smart Review</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Smart Review</h1>
+          <p className="text-gray-600 mt-2 text-sm sm:text-base">
             Intelligent analysis and suggestions for clinical documentation
           </p>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
           <button
             onClick={analyzeNote}
             disabled={isAnalyzing}
-            className="btn btn-primary flex items-center space-x-2"
+            className="btn btn-primary flex items-center justify-center space-x-2 min-h-[44px]"
           >
             <RefreshCw className={`h-4 w-4 ${isAnalyzing ? 'animate-spin' : ''}`} />
             <span>{isAnalyzing ? 'Analyzing...' : 'Re-analyze'}</span>
@@ -294,7 +294,7 @@ const SmartReview: React.FC = () => {
           <button 
             onClick={approveNote}
             disabled={isApproving || isApproved || note.status === 'finalized'}
-            className={`btn flex items-center space-x-2 ${
+            className={`btn flex items-center justify-center space-x-2 min-h-[44px] ${
               isApproved || note.status === 'finalized'
                 ? 'btn-success bg-green-600 hover:bg-green-600' 
                 : noteStats.errors > 0 
@@ -315,7 +315,8 @@ const SmartReview: React.FC = () => {
             ) : (
               <>
                 <ThumbsUp className="h-4 w-4" />
-                <span>Approve Note</span>
+                <span className="hidden sm:inline">Approve Note</span>
+                <span className="sm:hidden">Approve</span>
               </>
             )}
           </button>
@@ -325,41 +326,43 @@ const SmartReview: React.FC = () => {
       {/* Notes List */}
       <div className="card">
         <div className="card-header">
-          <h2 className="text-xl font-semibold text-gray-900">Clinical Notes</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Clinical Notes</h2>
         </div>
         <div className="space-y-3">
           {notes.map((n) => (
             <div
               key={n.id}
               onClick={() => selectNote(n.id)}
-              className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+              className={`p-3 sm:p-4 rounded-lg border-2 cursor-pointer transition-all ${
                 selectedNoteId === n.id
                   ? 'border-blue-500 bg-blue-50'
                   : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
               }`}
             >
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                 <div className="flex-1">
-                  <div className="flex items-center space-x-3">
-                    <h3 className="font-medium text-gray-900">{n.structuredData.chiefComplaint}</h3>
-                    <span className={`badge ${getStatusColor(n.status)}`}>
+                  <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3">
+                    <h3 className="font-medium text-gray-900 text-sm sm:text-base">
+                      {n.structuredData.chiefComplaint}
+                    </h3>
+                    <span className={`badge text-xs ${getStatusColor(n.status)} w-fit`}>
                       {n.status.replace('_', ' ')}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-600 mt-1">
                     {formatTimestamp(n.timestamp)} • Patient ID: {n.patientId}
                   </p>
-                  <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2">
                     {n.structuredData.historyOfPresentIllness}
                   </p>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-between sm:justify-end space-x-2">
                   <div className="text-right">
                     <p className="text-sm font-medium text-gray-900">{n.entities.length}</p>
                     <p className="text-xs text-gray-500">Entities</p>
                   </div>
                   {selectedNoteId === n.id && (
-                    <div className="w-1 h-8 bg-blue-500 rounded-full ml-2"></div>
+                    <div className="w-1 h-8 bg-blue-500 rounded-full"></div>
                   )}
                 </div>
               </div>
@@ -369,7 +372,7 @@ const SmartReview: React.FC = () => {
       </div>
 
       {/* Stats Dashboard */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         <div className="card">
           <div className="text-center">
             <p className="text-2xl font-bold text-gray-900">{noteStats.totalSuggestions}</p>
@@ -402,7 +405,7 @@ const SmartReview: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Note Editor */}
         <div className="lg:col-span-2 space-y-6">
           <div className="card">
@@ -602,15 +605,15 @@ const SmartReview: React.FC = () => {
           {/* Clinical Understanding Section */}
           <div className="card">
             <div className="card-header">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">Clinical Understanding</h2>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Clinical Understanding</h2>
                 <div className="flex items-center space-x-2">
                   <Brain className="h-5 w-5 text-blue-500" />
-                  <span className="text-sm text-gray-600">{note.entities.length} entities extracted</span>
+                  <span className="text-xs sm:text-sm text-gray-600">{note.entities.length} entities extracted</span>
                 </div>
               </div>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {note.entities.length === 0 ? (
                 <div className="text-center py-8">
                   <Brain className="h-12 w-12 text-gray-400 mx-auto mb-4" />
@@ -623,15 +626,15 @@ const SmartReview: React.FC = () => {
                       key={entity.id}
                       className={`p-3 rounded-lg border ${getEntityColor(entity.type)}`}
                     >
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center space-x-2">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0">
+                        <div className="flex items-start space-x-2 flex-1">
                           {getEntityIcon(entity.type)}
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <p className="font-medium text-sm">{entity.value}</p>
-                            <p className="text-xs opacity-75 mt-1">{entity.context}</p>
+                            <p className="text-xs opacity-75 mt-1 break-words">{entity.context}</p>
                           </div>
                         </div>
-                        <div className="text-right">
+                        <div className="text-right sm:text-left sm:ml-4 flex-shrink-0">
                           <p className={`text-xs font-medium ${getConfidenceColor(entity.confidence)}`}>
                             {(entity.confidence * 100).toFixed(0)}%
                           </p>
@@ -640,14 +643,14 @@ const SmartReview: React.FC = () => {
                       </div>
                       {(entity.icd10 || entity.snomedCt) && (
                         <div className="mt-2 pt-2 border-t border-current border-opacity-20">
-                          <div className="flex items-center space-x-4 text-xs">
+                          <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-xs">
                             {entity.icd10 && (
-                              <span className="font-mono bg-white bg-opacity-50 px-2 py-1 rounded">
+                              <span className="font-mono bg-white bg-opacity-50 px-2 py-1 rounded w-fit">
                                 ICD-10: {entity.icd10}
                               </span>
                             )}
                             {entity.snomedCt && (
-                              <span className="font-mono bg-white bg-opacity-50 px-2 py-1 rounded">
+                              <span className="font-mono bg-white bg-opacity-50 px-2 py-1 rounded w-fit">
                                 SNOMED: {entity.snomedCt}
                               </span>
                             )}
@@ -666,7 +669,7 @@ const SmartReview: React.FC = () => {
         <div className="space-y-6">
           <div className="card">
             <div className="card-header">
-              <h2 className="text-xl font-semibold text-gray-900">Review Suggestions</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Review Suggestions</h2>
             </div>
             <div className="space-y-4 max-h-96 overflow-y-auto scrollbar-thin">
               {suggestions.length === 0 ? (
