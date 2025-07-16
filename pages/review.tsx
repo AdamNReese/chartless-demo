@@ -282,7 +282,7 @@ const SmartReview: React.FC = () => {
             Intelligent analysis and suggestions for clinical documentation
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+        <div className="flex justify-center sm:justify-end">
           <button
             onClick={analyzeNote}
             disabled={isAnalyzing}
@@ -290,35 +290,6 @@ const SmartReview: React.FC = () => {
           >
             <RefreshCw className={`h-4 w-4 ${isAnalyzing ? 'animate-spin' : ''}`} />
             <span>{isAnalyzing ? 'Analyzing...' : 'Re-analyze'}</span>
-          </button>
-          <button 
-            onClick={approveNote}
-            disabled={isApproving || isApproved || note.status === 'finalized'}
-            className={`btn flex items-center justify-center space-x-2 min-h-[44px] ${
-              isApproved || note.status === 'finalized'
-                ? 'btn-success bg-green-600 hover:bg-green-600' 
-                : noteStats.errors > 0 
-                  ? 'btn-disabled bg-gray-300 text-gray-500 cursor-not-allowed' 
-                  : 'btn-success'
-            }`}
-          >
-            {isApproving ? (
-              <>
-                <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
-                <span>Approving...</span>
-              </>
-            ) : isApproved || note.status === 'finalized' ? (
-              <>
-                <CheckCircle className="h-4 w-4" />
-                <span>Approved</span>
-              </>
-            ) : (
-              <>
-                <ThumbsUp className="h-4 w-4" />
-                <span className="hidden sm:inline">Approve Note</span>
-                <span className="sm:hidden">Approve</span>
-              </>
-            )}
           </button>
         </div>
       </div>
@@ -408,6 +379,39 @@ const SmartReview: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Note Editor */}
         <div className="lg:col-span-2 space-y-6">
+          {/* Approve Note Button */}
+          <div className="flex justify-center sm:justify-end">
+            <button 
+              onClick={approveNote}
+              disabled={isApproving || isApproved || note.status === 'finalized'}
+              className={`btn flex items-center justify-center space-x-2 min-h-[44px] ${
+                isApproved || note.status === 'finalized'
+                  ? 'btn-success bg-green-600 hover:bg-green-600' 
+                  : noteStats.errors > 0 
+                    ? 'btn-disabled bg-gray-300 text-gray-500 cursor-not-allowed' 
+                    : 'btn-success'
+              }`}
+            >
+              {isApproving ? (
+                <>
+                  <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                  <span>Approving...</span>
+                </>
+              ) : isApproved || note.status === 'finalized' ? (
+                <>
+                  <CheckCircle className="h-4 w-4" />
+                  <span>Approved</span>
+                </>
+              ) : (
+                <>
+                  <ThumbsUp className="h-4 w-4" />
+                  <span className="hidden sm:inline">Approve Note</span>
+                  <span className="sm:hidden">Approve</span>
+                </>
+              )}
+            </button>
+          </div>
+
           <div className="card">
             <div className="card-header">
               <div className="flex items-center justify-between">
