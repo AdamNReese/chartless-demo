@@ -282,16 +282,6 @@ const SmartReview: React.FC = () => {
             Intelligent analysis and suggestions for clinical documentation
           </p>
         </div>
-        <div className="flex justify-center sm:justify-end">
-          <button
-            onClick={analyzeNote}
-            disabled={isAnalyzing}
-            className="btn btn-primary flex items-center justify-center space-x-2 min-h-[44px]"
-          >
-            <RefreshCw className={`h-4 w-4 ${isAnalyzing ? 'animate-spin' : ''}`} />
-            <span>{isAnalyzing ? 'Analyzing...' : 'Re-analyze'}</span>
-          </button>
-        </div>
       </div>
 
       {/* Notes List */}
@@ -379,8 +369,16 @@ const SmartReview: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Note Editor */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Approve Note Button */}
-          <div className="flex justify-center sm:justify-end">
+          {/* Note Actions */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+            <button
+              onClick={analyzeNote}
+              disabled={isAnalyzing}
+              className="btn btn-primary flex items-center justify-center space-x-2 min-h-[44px]"
+            >
+              <RefreshCw className={`h-4 w-4 ${isAnalyzing ? 'animate-spin' : ''}`} />
+              <span>{isAnalyzing ? 'Analyzing...' : 'Re-analyze'}</span>
+            </button>
             <button 
               onClick={approveNote}
               disabled={isApproving || isApproved || note.status === 'finalized'}
